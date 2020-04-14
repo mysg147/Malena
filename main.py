@@ -2,8 +2,18 @@ import speech_recognition as sr
 
 r=sr.Recognizer()
 
-with sr.Microphone() as source:
-    print("hey!! say something")
-    audio=r.listen(source)
-    voiceData=r.recognize_google(audio)
-    print(voiceData)
+def recordAudio():
+    with sr.Microphone() as source:
+        audio=r.listen(source)
+        voice_data=''
+        try:
+            voice_data=r.recognize_google(audio)
+        except sr.UnknownValueError:
+            print("unknown value ")
+        except sr.RequestError:
+            print("request error")
+        return voice_data
+
+print("hey!!")
+voice_data=recordAudio()
+print(voice_data)
