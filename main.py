@@ -121,9 +121,68 @@ def respond(voice_data):
         url = f"https://www.youtube.com/results?search_query={search_term}"
         webbrowser.get().open(url)
         speak(f'Here is what I found for {search_term} on youtube')
-    #6: exiting
-    if there_exists(['exit']):
-        speak("exiting")
+    
+     #6 weather
+    if there_exists(["weather"]):
+        search_term = voice_data.split("for")[-1]
+        url = "https://www.google.com/search?sxsrf=ACYBGNSQwMLDByBwdVFIUCbQqya-ET7AAA%3A1578847393212&ei=oUwbXtbXDN-C4-EP-5u82AE&q=weather&oq=weather&gs_l=psy-ab.3..35i39i285i70i256j0i67l4j0i131i67j0i131j0i67l2j0.1630.4591..5475...1.2..2.322.1659.9j5j0j1......0....1..gws-wiz.....10..0i71j35i39j35i362i39._5eSPD47bv8&ved=0ahUKEwiWrJvwwP7mAhVfwTgGHfsNDxsQ4dUDCAs&uact=5"
+        webbrowser.get().open(url)
+        speak("Here is what I found for on google")
+     
+
+     #7 stone paper scisorrs
+    if there_exists(["game"]):
+        voice_data = record_audio("choose among rock paper or scissor")
+        moves=["rock", "paper", "scissor"]
+    
+        cmove=random.choice(moves)
+        pmove=voice_data
+        
+
+        speak("The computer chose " + cmove)
+        speak("You chose " + pmove)
+        #speak("hi")
+        if pmove==cmove:
+            speak("the match is draw")
+        elif pmove== "rock" and cmove== "scissor":
+            speak("Player wins")
+        elif pmove== "rock" and cmove== "paper":
+            speak("Computer wins")
+        elif pmove== "paper" and cmove== "rock":
+            speak("Player wins")
+        elif pmove== "paper" and cmove== "scissor":
+            speak("Computer wins")
+        elif pmove== "scissor" and cmove== "paper":
+            speak("Player wins")
+        elif pmove== "scissor" and cmove== "rock":
+            speak("Computer wins")
+
+     #8 toss a coin
+    if there_exists(["toss","flip","coin"]):
+        moves=["head", "tails"]   
+        cmove=random.choice(moves)
+        speak("The computer chose " + cmove)
+
+     #9 calc
+    if there_exists(["plus","minus","multiply","divide","power","+","-","*","/"]):
+        opr = voice_data.split()[1]
+
+        if opr == '+':
+            speak(int(voice_data.split()[0]) + int(voice_data.split()[2]))
+        elif opr == '-':
+            speak(int(voice_data.split()[0]) - int(voice_data.split()[2]))
+        elif opr == 'multiply':
+            speak(int(voice_data.split()[0]) * int(voice_data.split()[2]))
+        elif opr == 'divide':
+            speak(int(voice_data.split()[0]) / int(voice_data.split()[2]))
+        elif opr == 'power':
+            speak(int(voice_data.split()[0]) ** int(voice_data.split()[2]))
+        else:
+            speak("Wrong Operator")
+
+    #10: exiting
+    if there_exists(['exit','goodby','quit','leave me alone']):
+        speak("goodby")
         exit()
 
 
@@ -131,7 +190,7 @@ def respond(voice_data):
 time.sleep(1)
 
 person_obj = person()
-assistant_obj=assistant('anebelle')
+assistant_obj=assistant('Malena')
 
 while(1):
     voice_data = record_audio(f"hey you can call me  {assistant_obj.name}  or you want to give me a nickname") # get the voice input
