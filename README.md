@@ -10,7 +10,7 @@ pip install pyaudio
 pip install playsound
 ```
 ```
-pip install PyAudio
+pip install gTTS
 ```
 
 ### Voice Commands
