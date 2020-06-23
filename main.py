@@ -25,18 +25,26 @@ def there_exists(terms):
 
 r = sr.Recognizer() # initialise a recogniser
 # listen for audio and convert it to text:
+
 askt=False
+
 def record_audio(ask=False):
-    with sr.Microphone() as source: # microphone as source
+    with sr.Microphone(sample_rate = 48000,chunk_size = 2048) as source: # microphone as source
+
         global askt
+
         if ask:
             if  ("or you want to give me a nickname" in ask) and (askt==False):
                 askt=True
                 speak(ask)
             if ("or you want to give me a nickname" not in ask) and (askt==True):
                 speak(ask)
+
+        r.adjust_for_ambient_noise(source)
+
         audio = r.listen(source)  # listen for the audio via source
         voice_data = ''
+
         try:
             voice_data = r.recognize_google(audio)  # convert audio to text
         except sr.UnknownValueError: # error: recognizer does not understand
@@ -45,6 +53,7 @@ def record_audio(ask=False):
             speak('Sorry, the service is down') # error: recognizer is not connected
         print(f">> {voice_data.lower()}") # print what user said
         return voice_data.lower()
+
 
 # get string and make a audio file to be played
 def speak(audio_string):
@@ -141,7 +150,7 @@ def respond(voice_data):
 
         speak("The computer chose " + cmove)
         speak("You chose " + pmove)
-        #speak("hi")
+        
         if pmove==cmove:
             speak("the match is draw")
         elif pmove== "rock" and cmove== "scissor":
@@ -180,9 +189,9 @@ def respond(voice_data):
         else:
             speak("Wrong Operator")
 
-    #10: exiting
+     #10: exiting
     if there_exists(['exit','goodby','quit','leave me alone']):
-        speak("goodby")
+        speak(f"goodby {person_obj.name}")
         exit()
 
 
