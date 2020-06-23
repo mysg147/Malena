@@ -18,7 +18,12 @@ pip install gTTS
 You can add other commands, but these are the ones that exist
 
 - What is your name?
+- Change your assistant name 
 - What time is it
 - Search
 - Find Location
+- Weather
+- Toss a coin
+- Calculator
+- Game(rock,paper,scissors)
 - Exit
